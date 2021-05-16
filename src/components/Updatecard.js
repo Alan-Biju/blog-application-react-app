@@ -53,18 +53,28 @@ const UpdateCard = ({userId}) => {
 		setDescription('');
 	};
 	const submit = () => {
-		const postRef = db.collection('user').doc(userId).collection('posts').doc(ids);
-		let payload = { Title, Content, Description };
-		postRef
-			.update(payload)
-			.then((doc) => {
-				console.log('updated');
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-		history.push('/card');
-		clear();
+	try {
+			const postRef = db
+				.collection('user')
+				.doc(userId)
+				.collection('posts')
+				.doc(ids);
+			let payload = { Title, Content, Description };
+			postRef
+				.update(payload)
+				.then((doc) => {
+					console.log('updated');
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+			history.push('/card');
+			clear();
+	} catch (error) {
+		console.log(error);
+			history.push('/card');
+
+	}
 	};
 	return (
 		<>
